@@ -147,6 +147,9 @@ class Instructor extends Lambdasian {
   grade(student, subject) {
     return  `${student.name} recieves a perfect score on ${subject}`;
   }
+  newGrade(student) {
+    student.grade += (Math.random() * 20) - 10;
+  }
 }
 
 /*
@@ -171,6 +174,8 @@ class Student extends Lambdasian{
     this.previousBackground = studentAtts.previousBackground;
     this.className = studentAtts.className;
     this.favSubjects = studentAtts.favSubjects;
+    this.grade = studentAtts.grade;
+    // this.graduated = studentAtts.graduated;
   }
   listSubjects(){
     let lovingSubs = 'Loving ';
@@ -186,7 +191,17 @@ class Student extends Lambdasian{
   sprintChallenge(subject){
     return `${this.name} has begun a sprint challenge on ${subject}`;
   }
+  graduate(){
+    if(this.grade >= 70) {
+      this.isGraduated = true;
+    } 
+  }
 }
+
+// - Add a graduate method to a student.
+//       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
+//       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+
 
 /*
   TASK 6
@@ -223,6 +238,37 @@ class ProjectManager extends Instructor{
       + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
 */
+
+const larry = new Student({
+  name: 'Larry',
+  age: 30,
+  location: 'Newport News',
+  previousBackground: 'Customer Service',
+  className: "Web36",
+  favSubjects: ['HTML', 'CSS', 'javaScript'],
+  grade: 65,
+  // graduated: false
+});
+
+const ludwig = new Instructor({
+  name: 'Ludwig',
+  age: 31,
+  location: 'Wallawalla',
+  specialty: 'debugging',
+  favLanguage: 'pascal',
+  catchPhrase: "Don't be rediculous!"
+})
+
+console.log(larry.grade);
+ludwig.newGrade(larry);
+ludwig.newGrade(larry);
+ludwig.newGrade(larry);
+console.log(larry.grade);
+larry.graduate();
+console.log(larry.isGraduated);
+
+
+
 
 ///////// END OF CHALLENGE /////////
 ///////// END OF CHALLENGE /////////
